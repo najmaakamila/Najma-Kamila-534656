@@ -2,349 +2,234 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dimensi Afeksi Indeks Kebahagiaan 2021</title>
+    <title>Sistem Informasi Statistik Kabupaten Sleman</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
+        /* Gaya dasar untuk font Times New Roman */
+        body, table, th, td, a, li, h2, h3, h4, p {
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        /* Warna biru pada background halaman */
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f9f9f9;
+            background-color: #EAF6FF; /* Biru langit sangat muda */
         }
-        h1 {
+
+        /* Judul (h2, h3, h4) dibuat center */
+        h2, h3, h4 {
+            margin-top: 5px;
+            margin-bottom: 10px;
             text-align: center;
-            color: #333;
-            font-size: 1.5em; /* Menyesuaikan ukuran font judul */
         }
-        table {
-            width: 90%; /* Melebarkan tabel */
-            margin: 20px auto;
+
+        /* Warna tema biru untuk header */
+        .header-cell {
+            background-color: #D6EAF8; /* Biru muda */
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        
+        /* Warna tema biru untuk sidebar */
+        .sidebar-cell {
+            background-color: #F4F9FF; /* Biru sangat pucat */
+            padding: 15px;
+        }
+        
+        /* Teks funfact dibuat justify */
+        .funfact-text {
+            font-size: 0.9em;
+            line-height: 1.4;
+            text-align: justify;
+        }
+
+        /* Konten utama tetap putih bersih */
+        .content-cell {
+            background-color: #FFFFFF;
+            padding: 15px;
+        }
+
+        /* Tabel data dilebarkan 100% */
+        .data-table {
             border-collapse: collapse;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            background-color: #fff;
+            border: 1px solid black;
+            width: 100%; 
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px; /* Sedikit mengurangi padding */
+        .data-table th, .data-table td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+        
+        /* Header tabel diberi warna biru */
+        .data-table th {
+            background-color: #B0C4DE; /* LightSteelBlue */
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        /* Angka di tabel dibuat center */
+        .data-table td {
+            text-align: center;
+        }
+        /* Override: Kolom pertama (Kecamatan) tetap rata kiri */
+        .data-table td:first-child {
             text-align: left;
         }
-        th {
-            background-color: #005A9C; /* Warna header biru tua */
-            color: white;
-            text-align: center;
-            font-size: 0.9em; /* Menyesuaikan font header agar pas */
-        }
-        /* Memberi warna zebra pada baris tabel */
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        tr:hover {
-            background-color: #e9e9e9;
-        }
-        caption {
-            caption-side: bottom;
-            font-size: 0.9em;
-            color: #777;
-            padding-top: 10px;
-            font-style: italic;
-        }
-        /* Style khusus untuk baris INDONESIA */
-        tr.total-row {
+        
+        /* Total row diberi warna biru */
+        .data-table .total-row {
             font-weight: bold;
-            background-color: #e0e0e0;
+            background-color: #E6F0F8; /* Biru pucat */
+        }
+        
+        /* Style untuk pembungkus grafik */
+        .chart-wrapper {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #DDD;
+            background-color: #FAFAFA;
+            border-radius: 5px;
+        }
+        
+        /* Style untuk sumber data */
+        .source-note {
+            font-size: 0.8em;
+            font-style: italic;
+            text-align: center;
+            margin-top: 10px;
         }
     </style>
 </head>
-<body>
+<body style="margin:0; padding:10px 0;">
 
-    <h1>Dimensi Afeksi Indeks Kebahagiaan, 2021</h1>
+<center>
 
-    <table>
-        <caption>Sumber: Data CSV (Dimensi Afeksi Indeks Kebahagiaan, 2021)</caption>
-        <thead>
-            <tr>
-                <th>Provinsi</th>
-                <th>Perasaan Senang/Riang/Gembira</th>
-                <th>Perasaan Tidak Khawatir/Cemas</th>
-                <th>Perasaan Tidak Tertekan</th>
-                <th>Dimensi Afeksi (Total)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>ACEH</td>
-                <td>77.45</td>
-                <td>55.26</td>
-                <td>62.64</td>
-                <td>63.75</td>
-            </tr>
-            <tr>
-                <td>SUMATERA UTARA</td>
-                <td>77.13</td>
-                <td>55.14</td>
-                <td>64.01</td>
-                <td>64.14</td>
-            </tr>
-            <tr>
-                <td>SUMATERA BARAT</td>
-                <td>77.6</td>
-                <td>57.7</td>
-                <td>65.47</td>
-                <td>65.75</td>
-            </tr>
-            <tr>
-                <td>RIAU</td>
-                <td>78.78</td>
-                <td>55.89</td>
-                <td>65.42</td>
-                <td>65.36</td>
-            </tr>
-            <tr>
-                <td>JAMBI</td>
-                <td>79.89</td>
-                <td>68.78</td>
-                <td>72.78</td>
-                <td>73.15</td>
-            </tr>
-            <tr>
-                <td>SUMATERA SELATAN</td>
-                <td>79.11</td>
-                <td>58.77</td>
-                <td>67.16</td>
-                <td>67.16</td>
-            </tr>
-            <tr>
-                <td>BENGKULU</td>
-                <td>75.92</td>
-                <td>59.37</td>
-                <td>65.06</td>
-                <td>65.77</td>
-            </tr>
-            <tr>
-                <td>LAMPUNG</td>
-                <td>78.4</td>
-                <td>57.83</td>
-                <td>64.22</td>
-                <td>65.53</td>
-            </tr>
-            <tr>
-                <td>KEP. BANGKA BELITUNG</td>
-                <td>80</td>
-                <td>63.6</td>
-                <td>69.73</td>
-                <td>70.13</td>
-            </tr>
-            <tr>
-                <td>KEP. RIAU</td>
-                <td>81.55</td>
-                <td>60.53</td>
-                <td>69.79</td>
-                <td>69.42</td>
-            </tr>
-            <tr>
-                <td>DKI JAKARTA</td>
-                <td>77.78</td>
-                <td>53.81</td>
-                <td>60.13</td>
-                <td>62.37</td>
-            </tr>
-            <tr>
-                <td>JAWA BARAT</td>
-                <td>76.06</td>
-                <td>54.68</td>
-                <td>62.71</td>
-                <td>63.21</td>
-            </tr>
-            <tr>
-                <td>JAWA TENGAH</td>
-                <td>77.48</td>
-                <td>61.85</td>
-                <td>67.59</td>
-                <td>68.03</td>
-            </tr>
-            <tr>
-                <td>DI YOGYAKARTA</td>
-                <td>78.05</td>
-                <td>61.24</td>
-                <td>65.79</td>
-                <td>67.29</td>
-            </tr>
-            <tr>
-                <td>JAWA TIMUR</td>
-                <td>77.81</td>
-                <td>59.27</td>
-                <td>65.6</td>
-                <td>66.43</td>
-            </tr>
-            <tr>
-                <td>BANTEN</td>
-                <td>73.55</td>
-                <td>52.31</td>
-                <td>59.83</td>
-                <td>60.61</td>
-            </tr>
-            <tr>
-                <td>BALI</td>
-                <td>76.14</td>
-                <td>58.13</td>
-                <td>66.69</td>
-                <td>65.98</td>
-            </tr>
-            <tr>
-                <td>NUSA TENGGARA BARAT</td>
-                <td>76.65</td>
-                <td>57.2</td>
-                <td>62.61</td>
-                <td>64.25</td>
-            </tr>
-            <tr>
-                <td>NUSA TENGGARA TIMUR</td>
-                <td>77.47</td>
-                <td>55.67</td>
-                <td>60.59</td>
-                <td>63.14</td>
-            </tr>
-            <tr>
-                <td>KALIMANTAN BARAT</td>
-                <td>80.17</td>
-                <td>59.87</td>
-                <td>65.82</td>
-                <td>67.34</td>
-            </tr>
-            <tr>
-                <td>KALIMANTAN TENGAH</td>
-                <td>79.35</td>
-                <td>61.36</td>
-                <td>68.39</td>
-                <td>68.63</td>
-            </tr>
-            <tr>
-                <td>KALIMANTAN SELATAN</td>
-                <td>79.66</td>
-                <td>62.83</td>
-                <td>68.22</td>
-                <td>69.2</td>
-            </tr>
-            <tr>
-                <td>KALIMANTAN TIMUR</td>
-                <td>80.71</td>
-                <td>58.52</td>
-                <td>65.16</td>
-                <td>66.74</td>
-            </tr>
-            <tr>
-                <td>KALIMANTAN UTARA</td>
-                <td>82.52</td>
-                <td>63.8</td>
-                <td>71.92</td>
-                <td>71.68</td>
-            </tr>
-            <tr>
-                <td>SULAWESI UTARA</td>
-                <td>82.49</td>
-                <td>58.44</td>
-                <td>63.94</td>
-                <td>66.72</td>
-            </tr>
-            <tr>
-                <td>SULAWESI TENGAH</td>
-                <td>81.91</td>
-                <td>56.82</td>
-                <td>66.1</td>
-                <td>66.77</td>
-            </tr>
-            <tr>
-                <td>SULAWESI SELATAN</td>
-                <td>79.03</td>
-                <td>60.95</td>
-                <td>68.25</td>
-                <td>68.35</td>
-            </tr>
-            <tr>
-                <td>SULAWESI TENGGARA</td>
-                <td>80.5</td>
-                <td>60.68</td>
-                <td>67.57</td>
-                <td>68.38</td>
-            </tr>
-            <tr>
-                <td>GORONTALO</td>
-                <td>82.36</td>
-                <td>59.81</td>
-                <td>70.06</td>
-                <td>69.47</td>
-            </tr>
-            <tr>
-                <td>SULAWESI BARAT</td>
-                <td>81.98</td>
-                <td>57.48</td>
-                <td>65.21</td>
-                <td>66.7</td>
-            </tr>
-            <tr>
-                <td>MALUKU</td>
-                <td>83.75</td>
-                <td>58.88</td>
-                <td>67.53</td>
-                <td>68.54</td>
-            </tr>
-            <tr>
-                <td>MALUKU UTARA</td>
-                <td>84.23</td>
-                <td>58.83</td>
-                <td>65.59</td>
-                <td>67.92</td>
-            </tr>
-            <tr>
-                <td>PAPUA BARAT</td>
-                <td>82.26</td>
-                <td>60.5</td>
-                <td>66.32</td>
-                <td>68.3</td>
-            </tr>
-            <tr>
-                <td>PAPUA BARAT DAYA</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>PAPUA</td>
-                <td>75.96</td>
-                <td>57.18</td>
-                <td>61.7</td>
-                <td>63.72</td>
-            </tr>
-            <tr>
-                <td>PAPUA SELATAN</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>PAPUA TENGAH</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-            <tr>
-                <td>PAPUA PEGUNUNGAN</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
-            <tr class="total-row">
-                <td>INDONESIA</td>
-                <td>77.64</td>
-                <td>57.91</td>
-                <td>64.87</td>
-                <td>65.61</td>
-            </tr>
-        </tbody>
-    </table>
+<table border="2" cellpadding="0" cellspacing="0" width="900" style="border-collapse: collapse; background-color: #FFFFFF; border-color: #333;">
+    
+    <tr>
+        <td class="header-cell" colspan="2">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: transparent;">
+                <tr>
+                    <td style="width: 130px; vertical-align: middle; padding-left: 15px;">
+                        <img src="Lambang_Kabupaten_Sleman.png" alt="Logo Sleman" width="100">
+                    </td>
+                    
+                    <td style="vertical-align: middle; padding-right: 130px;">
+                        <h2 style="text-align: center;">PEMERINTAH DAERAH KABUPATEN SLEMAN</h2>
+                        <h3 style="font-weight:normal; text-decoration: none; text-align: center;">SISTEM INFORMASI STATISTIK KABUPATEN SLEMAN</h3>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+
+    <tr>
+        <td width="25%" valign="top" class="sidebar-cell">
+            
+            <h4>Kebangkitan Industri Sleman Pasca Pandemi</h4>
+
+            <center>
+                <img src="covid.jfif" alt="Industri Sleman" style="width: 100%; max-width: 200px; height: auto; margin-bottom: 10px; border: 1px solid #CCC;">
+            </center>
+
+            <p class="funfact-text">
+                Meskipun tahun 2021 masih berada dalam masa pandemi COVID-19, sektor industri kecil dan menengah di Kabupaten Sleman terbukti tangguh dengan jumlah tenaga kerja mencapai 55.592 orang. Ketika pembatasan mulai dilonggarkan pada 2022, jumlah tenaga kerja meningkat menjadi 56.360 orang, menandakan awal pemulihan ekonomi daerah. Tahun 2023 menjadi puncak kebangkitan dengan 57.227 tenaga kerja, tertinggi dalam tiga tahun terakhir. Kecamatan seperti Cangkringan bahkan mencatat pertumbuhan tenaga kerja tertinggi sebesar 17,3%, menunjukkan bahwa wilayah yang sebelumnya terdampak pandemi mampu bangkit lebih cepat.
+            </p>
+        </td>
+
+        <td width="75%" valign="top" class="content-cell">
+            
+            <h3 style="margin-top:0;">Jumlah Tenaga Kerja Sektor Industri Kecil dan Industri Besar-Menengah Per Kecamatan di Kabupaten Sleman, 2021-2023</h3>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Kecamatan</th>
+                        <th>2021</th>
+                        <th>2022</th>
+                        <th>2023</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Moyudan</td><td>2.926</td><td>2.946</td><td>2.988</td></tr>
+                    <tr><td>Minggir</td><td>1.862</td><td>1.879</td><td>1.929</td></tr>
+                    <tr><td>Seyegan</td><td>4.494</td><td>4.509</td><td>4.541</td></tr>
+                    <tr><td>Godean</td><td>4.480</td><td>4.493</td><td>4.616</td></tr>
+                    <tr><td>Gamping</td><td>4.690</td><td>4.707</td><td>4.722</td></tr>
+                    <tr><td>Mlati</td><td>4.082</td><td>4.100</td><td>4.199</td></tr>
+                    <tr><td>Depok</td><td>4.137</td><td>4.152</td><td>4.187</td></tr>
+                    <tr><td>Berbah</td><td>1.311</td><td>1.321</td><td>1.421</td></tr>
+                    <tr><td>Prambanan</td><td>4.755</td><td>4.853</td><td>4.871</td></tr>
+                    <tr><td>Kalasan</td><td>1.938</td><td>2.158</td><td>2.187</td></tr>
+                    <tr><td>Ngemplak</td><td>3.698</td><td>3.793</td><td>3.847</td></tr>
+                    <tr><td>Ngaglik</td><td>3.190</td><td>3.280</td><td>3.318</td></tr>
+                    <tr><td>Sleman</td><td>6.485</td><td>6.497</td><td>6.527</td></tr>
+                    <tr><td>Tempel</td><td>1.590</td><td>1.670</td><td>1.685</td></tr>
+                    <tr><td>Turi</td><td>2.393</td><td>2.406</td><td>2.423</td></tr>
+                    <tr><td>Pakem</td><td>2.393</td><td>2.406</td><td>2.423</td></tr>
+                    <tr><td>Cangkringan</td><td>677</td><td>692</td><td>794</td></tr>
+                    <tr class="total-row">
+                        <td>Sleman (Total)</td>
+                        <td>55.592</td><td>56.360</td><td>57.227</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p class="source-note">
+                Sumber: Dinas Perindustrian dan Perdagangan Kabupaten Sleman
+            </p>
+
+            <h4>Grafik Tren Kenaikan Tenaga Kerja (Total Sleman)</h4>
+            <div class="chart-wrapper">
+                <canvas id="myTrendChart"></canvas>
+            </div>
+
+        </td>
+    </tr>
+</table>
+</center>
+
+<script>
+    // Data total
+    const data2021 = 55592;
+    const data2022 = 56360;
+    const data2023 = 57227;
+
+    const ctx = document.getElementById('myTrendChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'line', 
+        data: {
+            labels: ['2021', '2022', '2023'],
+            datasets: [{
+                label: 'Jumlah Tenaga Kerja (Total Sleman)',
+                data: [data2021, data2022, data2023],
+                // Warna grafik biru
+                borderColor: 'rgba(70, 130, 180, 1)', // SteelBlue
+                backgroundColor: 'rgba(70, 130, 180, 0.2)', // SteelBlue 20%
+                borderWidth: 2,
+                fill: true,
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    min: 55000, 
+                    title: { display: true, text: 'Jumlah Tenaga Kerja' }
+                },
+                x: {
+                    title: { display: true, text: 'Tahun' }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+</script>
 
 </body>
 </html>
